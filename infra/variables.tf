@@ -1,6 +1,11 @@
 # Projects and region
-variable "project_id" {}
-variable "region" {}
+variable "project_id" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
 
 # API services
 variable "api_services" {
@@ -8,34 +13,80 @@ variable "api_services" {
 }
 
 # Network
-variable "vpc_name" {}
-variable "private_subnet_name" {}
-variable "private_cidr" {}
-variable "public_subnet_name" {}
-variable "public_cidr" {}
-variable "create_public_subnet" {}
+variable "vpc_name" {
+  type = string
+}
+
+variable "private_subnet_name" {
+  type = string
+}
+
+variable "private_cidr" {
+  type = string
+}
+
+variable "public_subnet_name" {
+  type = string
+}
+
+variable "public_cidr" {
+  type = string
+}
+
+variable "create_public_subnet" {
+  type = string
+}
 
 # VPC connector
-variable "vpc_connector_name" {}
-variable "vpc_connector_cidr" {}
+variable "vpc_connector_name" {
+  type = string
+}
+
+variable "vpc_connector_cidr" {
+  type = string
+}
 
 # SQL
-variable "db_instance_name" {}
-variable "db_name" {}
-variable "db_user" {}
-variable "db_port" {}
-#variable "db_password" {}
+variable "db_instance_name" {
+  type = string
+}
+
+variable "db_name" {
+  type = string
+}
+
+variable "db_user" {
+  type = string
+}
+
+variable "db_port" {
+  type = string
+}
 
 # Artifact registry
-variable "repository_id" {}
+variable "repository_id" {
+  type = string
+}
 
 # Cloud run
-variable "cloud_run_name" {}
+variable "cloud_run_name" {
+  type = string
+}
 
 # IAM
-variable "service_account_id" {}
+variable "service_account_id" {
+  type = string
+}
 
 # Monitoring
-variable "alert_email" {}
-variable "google_chat_space" {}
-variable "memory_limit_bytes" {}
+variable "alert_email" {
+  type = string
+}
+
+variable "google_chat_space" {
+  type = string
+}
+
+variable "memory_limit_bytes" {
+  type = string
+}

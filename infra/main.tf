@@ -22,7 +22,7 @@ module "network" {
   region               = var.region
   private_subnet_name  = var.private_subnet_name
   private_cidr         = var.private_cidr
-  create_public_subnet = true
+  create_public_subnet = var.create_public_subnet
   public_subnet_name   = var.public_subnet_name
   public_cidr          = var.public_cidr
   services             = module.services.enabled_services
