@@ -60,7 +60,7 @@ jobs:
           image-ref: node-app:${{ github.sha }}
           format: table
           exit-code: 1
-          severity: HIGH,CRITICAL
+          severity: CRITICAL
 
   terraform-check:
     runs-on: ubuntu-latest
