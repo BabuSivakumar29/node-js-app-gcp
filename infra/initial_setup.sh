@@ -64,7 +64,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role="roles/artifactregistry.writer" \
   --role="roles/secretmanager.secretAccessor" \
   --role="roles/cloudsql.client" \
-  --role="roles/serviceusage.serviceUsageViewer"
+  --role="roles/serviceusage.serviceUsageViewer" \
+  --role="roles/storage.objectAdmin" \
+  --role="roles/storage.objectViewer"
 
 # Bind GitHub Repo to GCP Service Account
 gcloud iam service-accounts add-iam-policy-binding \
