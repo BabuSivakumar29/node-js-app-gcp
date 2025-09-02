@@ -60,6 +60,9 @@ jobs:
           exit-code: 1
           severity: HIGH,CRITICAL
 
+      - name: Check installed packages
+        run: docker run --rm node-app:${{ github.sha }} npm ls cross-spawn
+
   terraform-check:
     runs-on: ubuntu-latest
     needs: lint-test
