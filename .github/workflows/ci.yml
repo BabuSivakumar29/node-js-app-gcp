@@ -50,7 +50,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t node-app:${{ github.sha }} ./app
+        run: docker build -t node-app:${{ github.sha }} .
 
   docker-scan:
     runs-on: ubuntu-latest
