@@ -61,7 +61,7 @@ jobs:
     permissions:
       id-token: write    # Required for OIDC
       contents: read
-    needs: lint-test
+    needs: docker-build-scan
     env:
       TF_WORKSPACE: default
     steps:
@@ -90,6 +90,11 @@ jobs:
       - name: Terraform validate
         working-directory: infra
         run: terraform validate
+
+      - name: Install tflint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          tflint --version
 
       - name: Terraform lint (tflint)
         working-directory: infra
