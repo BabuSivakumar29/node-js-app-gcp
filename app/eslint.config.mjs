@@ -4,11 +4,11 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    files: ["**/*.{js,cjs}"],   // only Node/CommonJS files
+    files: ["**/*.{js,cjs}"], // Node.js files
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: {
-      globals: globals.node,     // <-- use Node.js globals
+      globals: globals.node,
       sourceType: "script"
     },
     rules: {
@@ -17,12 +17,20 @@ export default defineConfig([
     }
   },
   {
-    files: ["**/*.mjs"],         // if you have ES modules
+    files: ["**/*.mjs"], // ES modules
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: {
       globals: globals.es2021,
       sourceType: "module"
+    }
+  },
+  {
+    files: ["**/tests/**/*.js"], // Test files
+    plugins: { js },
+    languageOptions: {
+      globals: { ...globals.node, ...globals.jest }, // Jest globals
+      sourceType: "script"
     }
   }
 ]);
