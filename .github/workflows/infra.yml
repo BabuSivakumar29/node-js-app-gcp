@@ -12,9 +12,10 @@ jobs:
     - name: 'Authenticate to GCP'
       uses: google-github-actions/auth@v2
       with:
-        create_credentials_file: true
+        create_credentials_file: false
         workload_identity_provider: 'projects/377335099304/locations/global/workloadIdentityPools/nodejs-app-pool/providers/node-js-app-gcp-provider'
         service_account: 'github-deployer@intense-elysium-470611-j0.iam.gserviceaccount.com'
+        export_environment_variables: true
 
     - name: 'List enabled services'
       run: gcloud services list --project intense-elysium-470611-j0

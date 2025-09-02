@@ -60,11 +60,11 @@ gcloud iam service-accounts create github-deployer \
 # Assign roles to Service Account
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:github-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/run.admin"
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:github-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/artifactregistry.writer"
+  --role="roles/run.admin" \
+  --role="roles/artifactregistry.writer" \
+  --role="roles/secretmanager.secretAccessor" \
+  --role="roles/cloudsql.client" \
+  --role="roles/serviceusage.serviceUsageViewer"
 
 # Bind GitHub Repo to GCP Service Account
 gcloud iam service-accounts add-iam-policy-binding \
