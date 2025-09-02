@@ -1,15 +1,3 @@
-#resource "google_artifact_registry_repository" "docker_repo" {
-#  project       = var.project_id
-#  location      = var.region
-#  repository_id = var.repository_id
-#  description   = "Docker repository for my app"
-#  format        = "DOCKER"
-#
-#  depends_on = [
-#    var.services
-#  ]
-#}
-
 resource "google_artifact_registry_repository" "docker_repo" {
   project       = var.project_id
   location      = var.region
