@@ -10,7 +10,7 @@ resource "google_project_iam_member" "cloud_run_roles" {
     "roles/artifactregistry.writer",     # Pull images
     "roles/secretmanager.secretAccessor",# Access secrets
     "roles/cloudsql.client",             # Connect to Cloud SQL
-    "roles/serviceusage.viewer0"         # List enabled Services
+    "roles/serviceusage.serviceUsageViewer"         # List enabled Services
   ])
   project = var.project_id
   role    = each.key

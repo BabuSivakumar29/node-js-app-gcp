@@ -10,10 +10,10 @@ module "secrets" {
 }
 
 module "iam" {
-  source     = "./modules/iam"
-  project_id = var.project_id
+  source             = "./modules/iam"
+  project_id         = var.project_id
   service_account_id = var.service_account_id
-  services = module.services.enabled_services
+  services           = module.services.enabled_services
 }
 
 module "network" {
@@ -71,14 +71,14 @@ module "cloud_run" {
   db_private_ip       = module.sql.db_private_ip
   db_secret_name      = module.secrets.db_secret_name
   services            = module.services.enabled_services
-  depends_on       = [module.network]
+  depends_on          = [module.network]
 }
 
 module "monitoring" {
-  source = "./modules/monitoring"
+  source                 = "./modules/monitoring"
   cloud_run_service_name = var.cloud_run_name
-  alert_email           = var.alert_email
-  google_chat_space   = var.google_chat_space
-  memory_limit_bytes  = var.memory_limit_bytes
-  depends_on            = [module.cloud_run]
+  alert_email            = var.alert_email
+  google_chat_space      = var.google_chat_space
+  memory_limit_bytes     = var.memory_limit_bytes
+  depends_on             = [module.cloud_run]
 }

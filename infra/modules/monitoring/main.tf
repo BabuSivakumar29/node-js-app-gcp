@@ -1,11 +1,7 @@
-##########################
-# Notification Channels
-##########################
-
 # Google Chat Notification Channel
 resource "google_monitoring_notification_channel" "google_chat" {
   display_name = "Google Chat Alerts"
-  type         = "google_chat_space"
+  type         = "google_chat"
 
   labels = {
     space = var.google_chat_space
@@ -18,13 +14,11 @@ resource "google_monitoring_notification_channel" "email_channel" {
   type         = "email"
 
   labels = {
-    email_address = var.alert_email # Example: "alerts@example.com"
+    email_address = var.alert_email
   }
 }
 
-##########################
 # Log-based Metric
-##########################
 resource "google_logging_metric" "error_count_metric" {
   name        = "cloud_run_error_count"
   description = "Counts error log entries in Cloud Run"
@@ -37,9 +31,7 @@ resource "google_logging_metric" "error_count_metric" {
   }
 }
 
-##########################
 # Error Alert Policy (>3 errors in 5 minutes)
-##########################
 resource "google_monitoring_alert_policy" "error_alert" {
   display_name = "Cloud Run Errors > 3"
   combiner     = "OR"
@@ -52,7 +44,11 @@ resource "google_monitoring_alert_policy" "error_alert" {
   conditions {
     display_name = "More than 3 errors"
     condition_threshold {
-      filter          = "metric.type=\"logging.googleapis.com/user/${google_logging_metric.error_count_metric.name}\""
+      filter = <<EOT
+metric.type="logging.googleapis.com/user/${google_logging_metric.error_count_metric.name}"
+resource.type="cloud_run_revision"
+EOT
+
       comparison      = "COMPARISON_GT"
       threshold_value = 3
       duration        = "300s" # 5 minutes
@@ -65,9 +61,7 @@ resource "google_monitoring_alert_policy" "error_alert" {
   }
 }
 
-##########################
-# CPU Alert Policies
-##########################
+## CPU Alert Policies
 
 # Warning > 70% (Google Chat)
 resource "google_monitoring_alert_policy" "cpu_warning" {
@@ -119,9 +113,7 @@ resource "google_monitoring_alert_policy" "cpu_critical" {
   }
 }
 
-##########################
-# Memory Alert Policies
-##########################
+## Memory Alert Policies
 
 # Warning > 70% (Google Chat)
 resource "google_monitoring_alert_policy" "memory_warning" {
@@ -135,14 +127,15 @@ resource "google_monitoring_alert_policy" "memory_warning" {
   conditions {
     display_name = "Memory > 70%"
     condition_threshold {
-      filter          = "metric.type=\"run.googleapis.com/container/memory/used_bytes\" resource.type=\"cloud_run_revision\" resource.label.\"service_name\"=\"${var.cloud_run_service_name}\""
+      filter          = "metric.type=\"run.googleapis.com/container/memory/utilizations\" resource.type=\"cloud_run_revision\" resource.label.\"service_name\"=\"${var.cloud_run_service_name}\""
       comparison      = "COMPARISON_GT"
-      threshold_value = var.memory_limit_bytes * 0.7 # 70% of memory
+      threshold_value = 0.7   # ratio (0–1)
       duration        = "120s"
 
       aggregations {
-        alignment_period   = "60s"
-        per_series_aligner = "ALIGN_MEAN"
+        alignment_period     = "60s"
+        per_series_aligner   = "ALIGN_PERCENTILE_95"
+        cross_series_reducer = "REDUCE_NONE"
       }
     }
   }
@@ -160,14 +153,15 @@ resource "google_monitoring_alert_policy" "memory_critical" {
   conditions {
     display_name = "Memory > 80%"
     condition_threshold {
-      filter          = "metric.type=\"run.googleapis.com/container/memory/used_bytes\" resource.type=\"cloud_run_revision\" resource.label.\"service_name\"=\"${var.cloud_run_service_name}\""
+      filter          = "metric.type=\"run.googleapis.com/container/memory/utilizations\" resource.type=\"cloud_run_revision\" resource.label.\"service_name\"=\"${var.cloud_run_service_name}\""
       comparison      = "COMPARISON_GT"
-      threshold_value = var.memory_limit_bytes * 0.8
+      threshold_value = 0.8
       duration        = "120s"
 
       aggregations {
-        alignment_period   = "60s"
-        per_series_aligner = "ALIGN_MEAN"
+        alignment_period     = "60s"
+        per_series_aligner   = "ALIGN_PERCENTILE_95"
+        cross_series_reducer = "REDUCE_NONE"
       }
     }
   }

@@ -8,9 +8,9 @@ terraform {
   required_version = ">= 1.5.0"
 
   backend "gcs" {
-    bucket  = "nodejs_tf_backend"
-    prefix  = "node-js-app/state"
-#    project = var.project_id
+    bucket = "nodejs_tf_backend"
+    prefix = "node-js-app/state"
+    #    project = var.project_id
   }
 }
 

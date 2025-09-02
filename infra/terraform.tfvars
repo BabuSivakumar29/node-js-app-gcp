@@ -43,6 +43,6 @@ cloud_run_name = "node-js-app"
 service_account_id = "cloud-run-deployer"
 
 # Monitoring
-alert_email = "babumallow02@gmail.com"
-google_chat_space = "spaces/AAQAWP8fovs"
+alert_email        = "babumallow02@gmail.com"
+google_chat_space  = "spaces/AAQAWP8fovs"
 memory_limit_bytes = "1073741824"
