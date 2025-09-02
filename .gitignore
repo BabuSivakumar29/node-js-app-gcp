@@ -1,0 +1,7 @@
+node_modules
+*-destroy-plan-file
+*-plan-file
+infra/.terraform
+infra/.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
