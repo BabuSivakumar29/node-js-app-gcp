@@ -67,6 +67,8 @@ jobs:
     permissions:
       id-token: write  # Required for OIDC
       contents: read
+    env:
+      TF_WORKSPACE: default
     needs: lint-test
     steps:
       #Checkout repo
@@ -79,12 +81,16 @@ jobs:
         with:
           terraform_version: 1.5.0
 
+     # Authenticate GCP credentials
+     - name: Configure GCP OIDC credentials
+       uses: google-github-actions/auth@v1
+       with:
+         workload_identity_provider: projects/377335099304/locations/global/workloadIdentityPools/nodejs-app-pool/providers/node-js-app-gcp-provider
+         service_account: 'github-deployer@intense-elysium-470611-j0.iam.gserviceaccount.com'
+
       #Initialize Terraform modules
       - name: Terraform init
         working-directory: infra
-        env:
-          GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
-          GOOGLE_REGION: ${{ secrets.GCP_REGION }}
         run: terraform init
 
       # erraform fmt check
