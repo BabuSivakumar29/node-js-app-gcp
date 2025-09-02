@@ -82,6 +82,9 @@ jobs:
       #Initialize Terraform modules
       - name: Terraform init
         working-directory: infra
+        env:
+          GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
+          GOOGLE_REGION: ${{ secrets.GCP_REGION }}
         run: terraform init
 
       # erraform fmt check
