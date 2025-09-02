@@ -64,6 +64,9 @@ jobs:
 
   terraform-check:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Required for OIDC
+      contents: read
     needs: lint-test
     steps:
       #Checkout repo
