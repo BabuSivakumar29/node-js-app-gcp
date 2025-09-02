@@ -19,15 +19,19 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
+        working-directory: app
         run: npm install
 
       - name: Run ESLint
+        working-directory: app
         run: npm run lint
 
       - name: Run unit tests
+        working-directory: app
         run: npm test
 
       - name: Security scan (npm audit)
+        working-directory: app
         run: npm audit
 
   docker-build:
