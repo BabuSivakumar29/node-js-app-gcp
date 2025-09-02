@@ -35,9 +35,10 @@ jobs:
         working-directory: app
         run: NODE_ENV=test npm test
 
-- name: Security scan (npm audit)
-  working-directory: app
-  run: npm audit --audit-level=moderate
+      # Run vulenerability check
+      - name: Security scan (npm audit)
+        working-directory: app
+        run: npm audit --audit-level=moderate
 
   docker-build:
     runs-on: ubuntu-latest
