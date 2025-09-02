@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  NODE_VERSION: 20
+  TF_WORKSPACE: default
+  DOCKER_IMAGE_NAME: node-app
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -16,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         working-directory: app
@@ -44,14 +49,14 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build --no-cache -t node-app:${{ github.sha }} .
+        run: docker build --no-cache -t ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }} .
 
       - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.33.0
         env:
           TRIVY_DISABLE_VEX_NOTICE: true
         with:
-          image-ref: node-app:${{ github.sha }}
+          image-ref: ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
           format: table
           exit-code: 1
           severity: CRITICAL
@@ -63,7 +68,7 @@ jobs:
       contents: read
     needs: docker-build-scan
     env:
-      TF_WORKSPACE: default
+      TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -76,8 +81,8 @@ jobs:
       - name: Authenticate to GCP via OIDC
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/377335099304/locations/global/workloadIdentityPools/nodejs-app-pool/providers/node-js-app-gcp-provider
-          service_account: github-deployer@intense-elysium-470611-j0.iam.gserviceaccount.com
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
 
       - name: Terraform init
         working-directory: infra
