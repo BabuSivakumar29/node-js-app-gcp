@@ -52,11 +52,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t node-app:${{ github.sha }} .
 
-      - name: Set up Trivy
+      - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@master
-
-      - name: Scan Docker image
-        run: trivy image --severity HIGH,CRITICAL node-app:${{ github.sha }}
+        with:
+          image-ref: node-app:${{ github.sha }}  # <-- specify the image explicitly
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL
 
   terraform-check:
     runs-on: ubuntu-latest
