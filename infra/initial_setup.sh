@@ -74,7 +74,8 @@ gcloud projects add-iam-policy-binding intense-elysium-470611-j0 \
   --role="roles/cloudsql.admin" \
   --role="roles/cloudsql.client" \
   --role="roles/vpcaccess.admin" \
-  --role="roles/storage.objectAdmin"
+  --role="roles/storage.objectAdmin" \
+  --role="roles/resourcemanager.projectIamAdmin"
 
 
 # Bind GitHub Repo to GCP Service Account
