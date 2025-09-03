@@ -32,10 +32,15 @@ jobs:
       - name: Download Terraform plan artifact
         uses: actions/download-artifact@v4
         with:
-#          name: terraform-plan
+          name: plan-file
           path: infra
           repository: BabuSivakumar29/node-js-app-gcp
           run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
 
       - name: Apply Terraform plan
         working-directory: infra
