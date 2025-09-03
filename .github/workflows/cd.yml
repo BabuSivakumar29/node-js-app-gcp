@@ -29,7 +29,7 @@ jobs:
           service_account: ${{ secrets.GCP_SA_EMAIL }}
 
       - name: Download Terraform plan artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: terraform-plan
           path: infra
