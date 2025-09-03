@@ -33,6 +33,8 @@ jobs:
         with:
           name: terraform-plan
           path: infra
+          repository: BabuSivakumar29/node-js-app-gcp
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Apply Terraform plan
         working-directory: infra
