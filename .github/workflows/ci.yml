@@ -83,25 +83,25 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SA_EMAIL }}
 
-      - name: Set up gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ env.GCP_PROJECT }}
-          export_default_credentials: true
+#      - name: Set up gcloud CLI
+#        uses: google-github-actions/setup-gcloud@v2
+#        with:
+#          project_id: ${{ env.GCP_PROJECT }}
+#          export_default_credentials: true
 
-      - name: Enable required GCP APIs
-        run: |
-          echo "Enabling Cloud Resource Manager API first..."
-          gcloud services enable cloudresourcemanager.googleapis.com \
-            run.googleapis.com \
-            secretmanager.googleapis.com \
-            sqladmin.googleapis.com \
-            compute.googleapis.com \
-            artifactregistry.googleapis.com \
-            vpcaccess.googleapis.com \
-            servicenetworking.googleapis.com \
-            iam.googleapis.com \
-            --project=${{ env.GCP_PROJECT }}
+#      - name: Enable required GCP APIs
+#        run: |
+#          echo "Enabling Cloud Resource Manager API first..."
+#          gcloud services enable cloudresourcemanager.googleapis.com \
+#            run.googleapis.com \
+#            secretmanager.googleapis.com \
+#            sqladmin.googleapis.com \
+#            compute.googleapis.com \
+#            artifactregistry.googleapis.com \
+#            vpcaccess.googleapis.com \
+#            servicenetworking.googleapis.com \
+#            iam.googleapis.com \
+#            --project=${{ env.GCP_PROJECT }}
 
       - name: Terraform init
         working-directory: infra
