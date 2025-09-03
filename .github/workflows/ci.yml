@@ -103,3 +103,13 @@ jobs:
       - name: Terraform lint (tflint)
         working-directory: infra
         run: tflint
+
+      - name: Terraform plan
+        working-directory: infra
+        run: terraform plan -out=tfplan
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-plan
+          path: infra/tfplan

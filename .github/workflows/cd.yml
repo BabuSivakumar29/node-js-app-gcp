@@ -28,6 +28,16 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SA_EMAIL }}
 
+      - name: Download Terraform plan artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: terraform-plan
+          path: infra
+
+      - name: Apply Terraform plan
+        working-directory: infra
+        run: terraform apply "tfplan"
+
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${GCP_PROJECT}.pkg.dev --quiet
 
