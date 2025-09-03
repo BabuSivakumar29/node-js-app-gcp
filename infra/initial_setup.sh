@@ -64,7 +64,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role="roles/artifactregistry.writer" \
   --role="roles/secretmanager.secretAccessor" \
   --role="roles/cloudsql.client" \
-  --role="roles/serviceusage.serviceUsageViewer" \
+  --role="roles/serviceusage.serviceUsageAdmin" \
   --role="roles/storage.objectAdmin" \
   --role="roles/secretmanager.admin" \
   --role="roles/compute.networkAdmin" \
