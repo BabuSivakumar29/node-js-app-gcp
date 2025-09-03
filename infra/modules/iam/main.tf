@@ -7,10 +7,12 @@ resource "google_service_account" "cloud_run_sa" {
 resource "google_project_iam_member" "cloud_run_roles" {
   for_each = toset([
     "roles/run.admin",                   # Deploy Cloud Run
-    "roles/artifactregistry.writer",     # Pull images
-    "roles/secretmanager.secretAccessor",# Access secrets
+    "roles/artifactregistry.admin",     # Pull images
+    "roles/secretmanager.admin",# Access secrets
     "roles/cloudsql.client",             # Connect to Cloud SQL
-    "roles/serviceusage.serviceUsageViewer"         # List enabled Services
+    "roles/iam.serviceAccountAdmin",      # IAM SA
+    "roles/serviceusage.serviceUsageViewer",         # List enabled Services
+    "roles/compute.networkAdmin"          # Compute
   ])
   project = var.project_id
   role    = each.key
