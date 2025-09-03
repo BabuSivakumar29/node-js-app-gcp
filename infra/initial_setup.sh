@@ -61,6 +61,8 @@ gcloud iam service-accounts create github-deployer \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:github-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
   --role="roles/run.admin" \
+  --role="roles/artifactregistry.writer" \
+  --role="roles/secretmanager.secretAccessor" \
   --role="roles/cloudsql.client" \
   --role="roles/serviceusage.serviceUsageViewer" \
   --role="roles/storage.objectAdmin" \
