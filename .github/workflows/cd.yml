@@ -35,8 +35,10 @@ jobs:
         with:
           name: plan-file
           path: infra
+          workflow: "ci.yml"
           repository: BabuSivakumar29/node-js-app-gcp
           run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
