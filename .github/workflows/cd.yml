@@ -18,6 +18,7 @@ jobs:
       CLOUD_RUN_SERVICE: node-js-app
       CLOUD_RUN_REGION: us-east1
       GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+      TF_WORKSPACE: default   # Ensure same workspace as CI
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
