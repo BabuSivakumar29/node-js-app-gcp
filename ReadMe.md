@@ -45,6 +45,7 @@ sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 # Login to GCP
 gcloud auth login
 gcloud config set project <PROJECT_ID>
+```
 
 ---
 
@@ -62,6 +63,8 @@ GCP_PROJECT=<PROJECT_ID>
 GCP_SA_EMAIL=<service_account_email_created_in_previous_step>
 WORKLOAD_IDENTITY_PROVIDER=<gcloud iam workload-identity-pools describe "$WID_POOL_NAME" \
   --location="global" --format="value(name)">
+```
+
 ---
 
 ## CI/CD Pipeline Overview
