@@ -52,7 +52,7 @@ jobs:
         run: terraform apply -input=false tfplan
 
       - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker ${GCP_PROJECT}.pkg.dev --quiet
+        run: gcloud auth configure-docker ${CLOUD_RUN_REGION}-docker.pkg.dev --quiet
 
       - name: Build Docker image
         run: |
