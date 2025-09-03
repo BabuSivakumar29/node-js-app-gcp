@@ -45,7 +45,7 @@ jobs:
 
       - name: Apply Terraform plan
         working-directory: infra
-        run: terraform apply "tfplan"
+        run: terraform apply -input=false tfplan
 
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${GCP_PROJECT}.pkg.dev --quiet
