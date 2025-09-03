@@ -87,6 +87,10 @@ jobs:
         working-directory: infra
         run: terraform init
 
+      - name: Terraform lock
+        working-directory: infra
+        run: terraform providers lock
+
       - name: Terraform fmt check
         working-directory: infra
         run: terraform fmt -check
@@ -112,4 +116,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: plan-file
-          path: infra/tfplan
+          path: |
+            infra/tfplan
+            infra/.terraform.lock.hcl
