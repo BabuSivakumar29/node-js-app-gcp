@@ -58,18 +58,24 @@ gcloud iam service-accounts create github-deployer \
   --display-name="GitHub Deployer"
 
 # Assign roles to Service Account
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:github-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/run.admin" \
-  --role="roles/artifactregistry.writer" \
-  --role="roles/secretmanager.secretAccessor" \
-  --role="roles/cloudsql.client" \
+gcloud projects add-iam-policy-binding intense-elysium-470611-j0 \
+  --member="serviceAccount:github-deployer@intense-elysium-470611-j0.iam.gserviceaccount.com" \
   --role="roles/serviceusage.serviceUsageAdmin" \
-  --role="roles/storage.objectAdmin" \
-  --role="roles/secretmanager.admin" \
-  --role="roles/compute.networkAdmin" \
   --role="roles/iam.serviceAccountAdmin" \
-  --role="roles/artifactregistry.admin"
+  --role="roles/iam.serviceAccountKeyAdmin" \
+  --role="roles/compute.networkAdmin" \
+  --role="roles/compute.securityAdmin" \
+  --role="roles/artifactregistry.admin" \
+  --role="roles/artifactregistry.writer" \
+  --role="roles/run.admin" \
+  --role="roles/iam.serviceAccountUser" \
+  --role="roles/secretmanager.admin" \
+  --role="roles/secretmanager.secretAccessor" \
+  --role="roles/cloudsql.admin" \
+  --role="roles/cloudsql.client" \
+  --role="roles/vpcaccess.admin" \
+  --role="roles/storage.objectAdmin"
+
 
 # Bind GitHub Repo to GCP Service Account
 gcloud iam service-accounts add-iam-policy-binding \
